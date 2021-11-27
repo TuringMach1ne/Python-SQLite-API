@@ -1,7 +1,11 @@
-'''
-https://repl.it/@HiComputer/Lab-32
-Author = Eray Ercan, ee431, 209571284
-'''
+
+###########################################################
+#
+#                 SQL BASIC QUERIES
+#
+#               @Author: TuringMach1ne
+#
+###########################################################
 import sqlite3
 
 # Define DBOperation class to manage all data into the database.
