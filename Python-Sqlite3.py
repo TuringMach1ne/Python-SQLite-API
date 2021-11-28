@@ -37,14 +37,14 @@ class DBOperations:
 
   def __init__(self):
     try:
-      self.conn = sqlite3.connect("MyDataStore.db")
-      self.cur = self.conn.cursor()
-      self.cur.execute(self.sql_create_table_firsttime)
-      self.conn.commit()
+      self.conn = sqlite3.connect("MyDataStore.db") #sets up the connection to the database
+      self.cur = self.conn.cursor() # sets up the cursor
+      self.cur.execute(self.sql_create_table_firsttime)	
+      self.conn.commit() #committing the changes to the DB
     except Exception as e:
       print(e)
     finally:
-      self.conn.close()
+      self.conn.close() '# don't forget to close the connection
   
   def get_connection(self):
     self.conn = sqlite3.connect("MyDataStore.db")
@@ -53,12 +53,12 @@ class DBOperations:
   def create_table(self):
     try:
      self.get_connection()
-     
+     #set up the connection and search if the table exists already.
      self.cur.execute('''SELECT count(*) FROM sqlite_master WHERE type='table' AND name='EmployeeUoB' ''')
      if self.cur.fetchone()[0]==1 : 
 	      print("Table exists.")
      
-     else:
+     else:#create the table and commit
       self.cur.execute(self.sql_create_table)
       self.conn.commit()
       print("Table created successfully")
@@ -73,7 +73,7 @@ class DBOperations:
     try:
       self.get_connection()
       emp = Employee()
-      
+      #connect and prompt the user for records
       emp.set_employee_id(int(input("Enter Employee ID: ")))
       emp.set_employee_title(str(input("Enter Employee title: ")))
       emp.set_forename(str(input("Enter Employee name: ")))
@@ -115,7 +115,7 @@ class DBOperations:
       self.conn.close()
 
 
-  def search_data(self):
+  def search_data(self): # conducts search with employee ID
     try:
       self.get_connection()
       employeeID = int(input("Enter employee ID: "))
@@ -137,7 +137,7 @@ class DBOperations:
     finally:
       self.conn.close()
   
-  def update_data(self):
+  def update_data(self): #finds the Employee by ID and changes records (not the primary key)
     try:
       self.get_connection()
       updateID = str(input("Enter the Employee ID to update records"))
@@ -207,7 +207,7 @@ class DBOperations:
             print("connection is closed")
 
   
-  def drop_table(self):
+  def drop_table(self): #erases the table completely
     decision = input("Dropping the data will erase the data will you continue? Y/N")
     if decision == 'Y' or decision == 'y':
 
